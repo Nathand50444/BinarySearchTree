@@ -1,6 +1,6 @@
 class Node
-  def initialize(value = nil, left = nil, right = nil)
-    @value = value
+  def initialize(array = nil)
+    @array = array
     @left = left
     @right = right
   end
