@@ -1,7 +1,7 @@
 class Node
-  def initialize(array = nil)
-    @array = array
-    @left = left
-    @right = right
+  def initialize(value, left, right)
+    @node = value
+    @left = Tree.new(left)
+    @right = Tree.new(right)
   end
 end
