@@ -1,7 +1,9 @@
 class Node
-  def initialize(value, left, right)
-    @node = value
-    @left = Tree.new(left)
-    @right = Tree.new(right)
+  attr_accessor :data, :left, :right
+
+  def initialize(data, left = nil, right = nil)
+    @data = data
+    @left = left
+    @right = right
   end
 end
