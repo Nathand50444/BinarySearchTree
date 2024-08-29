@@ -84,6 +84,52 @@ class Tree
     # The second and third levels should be the left and right children of the root node, etc.
   end
 
+  def inorder
+    # The Tree is traversed in this order: left subtree, root then right subtree.
+    # Starting from the root, recursively traverse the left subtree
+    # Yield each node to the block or add its value to an array.
+    # Traverse the right subtree and add the values to the array.
+  end
+
+  def preorder
+    # The Tree is traversed in this order: root, left subtree then right subtree.
+    # Starting from the root, yield the current value to the block (or output to the array)
+    # Recursively traverse the left subtree then traverse the right subtree
+    # Yield each node to the block or add its value to an array.
+  end
+
+  def postorder
+    # The Tree is traversed in this order: left subtree, right subtree then root node
+    # Starting from the root, yield the current value to the block (or output to the array)
+    # Recursively traverse the left subtree then traverse the right subtree
+    # Yield each node to the block or add its value to an array.
+  end
+
+  def height(data)
+    # Works similarly to find(data) but return the HEIGHT of the data
+    # i.e. returns the longest path and number of connections/lines between the root and THE LEAF NODE of the data
+    # The "leaf node" is a node that has no left or right trees
+  end
+
+  def depth(data)
+    # Works similarly to find(data) but return the DEPTH of the data
+    # i.e. returns the number of connections/lines between the root and the data node itself.
+  end
+
+  def balanced?
+    # Checks if the tree is balanced
+    # Here we need a check that counts the nodes cointained in the left subtree and right subtree of the root node.
+    # These counts can then be compared and the difference should not more than 1.
+    # If the difference is greater than 1 then the tree is unbalanced.
+  end
+
+  def rebalance
+    # Method should rebalance the tree
+    # Tree is traversed INORDER and creates a new array for the method build_tree(data_set)
+    # INORDER traversal will mean we get a sorted array of nodes.
+    # Pass the sorted array into the build_tree(data_set) method
+  end
+
   private
 
   def pretty_print_node(node, prefix, is_left)
