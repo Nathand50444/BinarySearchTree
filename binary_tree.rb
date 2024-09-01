@@ -57,6 +57,53 @@ class Tree
     # If the current node has no children, delete the current node
     # If the current node has one child, replace the current node with the child
     # If the current node has two children, replace the current node with the in-order successor
+    current = find(data)
+    if current.nil?
+      return nil
+    end
+
+    if current.left.nil? && current.right.nil?
+      if current.parent.nil?
+        @root = nil
+      else
+        if current.parent.left == current
+          current.parent.left = nil
+        else
+          current.parent.right = nil
+        end
+      end
+    elsif current.left && current.right.nil?
+      if current.parent.nil?
+        @root = current.left
+      else
+        if current.parent.left == current
+          current.parent.left = current.left
+        else
+          current.parent.right = current.left
+        end
+      end
+    elsif current.right && current.left.nil?
+      if current.parent.nil?
+        @root = current.right
+      else
+        if current.parent.left == current
+          current.parent.left = current.right
+        else
+          current.parent.right = current.right
+        end
+      end
+    else
+      min_node = current.right
+      while min_node.left
+        min_node = min_node.left
+      end
+      current.data = min_node.data
+      if min_node.parent.left == min_node
+        min_node.parent.left = nil
+      else
+        min_node.parent.right = nil
+      end
+    end
   end
 
   def find(data)
@@ -64,7 +111,7 @@ class Tree
     # If the data is less than the current node, traverse the left branch
     # If the data is greater than the current node, traverse the right branch
     # If the current node is nil, return nil
-    # If the current node is the data, return the current node 
+    # If the current node is the data, return the current node
     # (what information does this give us? Can we return the Node ID?)
     current = @root
     
@@ -82,13 +129,28 @@ class Tree
     # Node elements should be compiled into an array in "level order"
     # For examples, the first level should be the root node.
     # The second and third levels should be the left and right children of the root node, etc.
+    nodes = [@root]
+    return [] if nodes.first.nil?
+    result = []
+
+    until nodes.empty?
+      current = nodes.shift
+      result << current.data
+      nodes << current.left if current.left
+      nodes << current.right if current.right
+    end
+    result.each { |el| yield el } if block_given?
   end
 
-  def inorder
+  def inorder(node = @root)
     # The Tree is traversed in this order: left subtree, root then right subtree.
     # Starting from the root, recursively traverse the left subtree
     # Yield each node to the block or add its value to an array.
     # Traverse the right subtree and add the values to the array.
+    return if node.nil?
+    inorder(node.left)
+    puts node.data
+    inorder(node.right)
   end
 
   def preorder
@@ -96,6 +158,11 @@ class Tree
     # Starting from the root, yield the current value to the block (or output to the array)
     # Recursively traverse the left subtree then traverse the right subtree
     # Yield each node to the block or add its value to an array.
+    return if @root.nil?
+
+    puts @root.data
+    preorder(@root.left)
+    preorder(@root.right)
   end
 
   def postorder
@@ -103,6 +170,11 @@ class Tree
     # Starting from the root, yield the current value to the block (or output to the array)
     # Recursively traverse the left subtree then traverse the right subtree
     # Yield each node to the block or add its value to an array.
+    return if @root.nil?
+
+    postorder(@root.left)
+    postorder(@root.right)
+    puts @root.data
   end
 
   def height(data)
@@ -151,6 +223,8 @@ class Tree
     # Tree is traversed INORDER and creates a new array for the method build_tree(data_set)
     # INORDER traversal will mean we get a sorted array of nodes.
     # Pass the sorted array into the build_tree(data_set) method
+    data = inorder
+    @root = build_tree(data)
   end
 
   private
