@@ -109,18 +109,41 @@ class Tree
     # Works similarly to find(data) but return the HEIGHT of the data
     # i.e. returns the longest path and number of connections/lines between the root and THE LEAF NODE of the data
     # The "leaf node" is a node that has no left or right trees
+    node = find(data)
+    return -1 if node.nil?
+    height_node(node)
+  end
+  
+  def height_node(node)
+    return 0 if node.nil?
+    [height_node(node.left), height_node(node.right)].max + 1
   end
 
   def depth(data)
-    # Works similarly to find(data) but return the DEPTH of the data
-    # i.e. returns the number of connections/lines between the root and the data node itself.
+    # Works similarly to find(data) but return the HEIGHT of the data
+    # i.e. returns the longest path and number of connections/lines between the root and THE LEAF NODE of the data
+    # The "leaf node" is a node that has no left or right trees
+    current = @root
+    depth_tally = 0
+
+    while current
+      if current.data == data
+        return depth_tally
+      else
+        current = data < current.data ? current.left : current.right
+        depth_tally += 1
+      end
+    end
+    -1  # return -1 if data is not found
   end
 
-  def balanced?
-    # Checks if the tree is balanced
-    # Here we need a check that counts the nodes cointained in the left subtree and right subtree of the root node.
-    # These counts can then be compared and the difference should not more than 1.
-    # If the difference is greater than 1 then the tree is unbalanced.
+  def balanced?(node = @root)
+    return true if node.nil?
+    left_height = height_node(node.left)
+    right_height = height_node(node.right)
+
+    return false if (left_height - right_height).abs > 1
+    balance(node.left) && balance(node.right)
   end
 
   def rebalance
