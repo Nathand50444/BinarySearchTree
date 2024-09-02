@@ -140,6 +140,7 @@ class Tree
       nodes << current.right if current.right
     end
     result.each { |el| yield el } if block_given?
+    puts nodes
   end
 
   def inorder(node = @root)
@@ -215,7 +216,15 @@ class Tree
     right_height = height_node(node.right)
 
     return false if (left_height - right_height).abs > 1
-    balance(node.left) && balance(node.right)
+    balanced?(node.left) && balanced?(node.right)
+  end
+
+  def check_balance
+    if balanced?
+      puts "Balanced!"
+    else
+      puts "Imbalanced!"
+    end
   end
 
   def rebalance
