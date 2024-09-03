@@ -14,3 +14,13 @@ test.build_tree(Array.new(15) { rand(1..100) })
 test.pretty_print
 test.check_balance
 test.level_order
+test.preorder
+test.postorder
+test.inorder
+test.insert(120) # Issue with new_node.parent = parent
+
+# test.insert(193)
+# test.insert(154)
+# test.insert(132)
+# test.check_balance
+# test.rebalance

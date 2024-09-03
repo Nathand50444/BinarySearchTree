@@ -139,43 +139,54 @@ class Tree
       nodes << current.left if current.left
       nodes << current.right if current.right
     end
-    result.each { |el| yield el } if block_given?
-    puts nodes
+    p result
   end
 
-  def inorder(node = @root)
     # The Tree is traversed in this order: left subtree, root then right subtree.
     # Starting from the root, recursively traverse the left subtree
     # Yield each node to the block or add its value to an array.
     # Traverse the right subtree and add the values to the array.
-    return if node.nil?
-    inorder(node.left)
-    puts node.data
-    inorder(node.right)
+ 
+  def inorder(node = @root)
+    inorder_list = []
+
+    inorder_traversal = lambda do |node|
+      return if node.nil? 
+      inorder_traversal.call(node.left)
+      inorder_list << node.data
+      inorder_traversal.call(node.right)
+    end
+
+    inorder_traversal.call(node)
+    p inorder_list
   end
 
-  def preorder
-    # The Tree is traversed in this order: root, left subtree then right subtree.
-    # Starting from the root, yield the current value to the block (or output to the array)
-    # Recursively traverse the left subtree then traverse the right subtree
-    # Yield each node to the block or add its value to an array.
-    return if @root.nil?
+  def preorder(node = @root)
+    preorder_list = []
 
-    puts @root.data
-    preorder(@root.left)
-    preorder(@root.right)
+    preorder_traversal = lambda do |node|
+      return if node.nil?
+      preorder_list << node.data
+      preorder_traversal.call(node.left)
+      preorder_traversal.call(node.right)
+    end
+
+    preorder_traversal.call(node)
+    p preorder_list
   end
 
-  def postorder
-    # The Tree is traversed in this order: left subtree, right subtree then root node
-    # Starting from the root, yield the current value to the block (or output to the array)
-    # Recursively traverse the left subtree then traverse the right subtree
-    # Yield each node to the block or add its value to an array.
-    return if @root.nil?
+  def postorder(node = @root)
+    postorder_list = []
+  
+    postorder_traversal = lambda do |node|
+      return if node.nil?
+      postorder_traversal.call(node.left)
+      postorder_traversal.call(node.right)
+      postorder_list << node.data
+    end
 
-    postorder(@root.left)
-    postorder(@root.right)
-    puts @root.data
+    postorder_traversal.call(node)
+    p postorder_list
   end
 
   def height(data)
