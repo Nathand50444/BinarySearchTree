@@ -1,22 +1,36 @@
 require_relative 'node.rb'
 
 class Tree
+  
   def initialize
     @root = nil
   end
 
   def build_tree(data_set)
+    # Ensure that the data set is sorted before calling build_tree to create the BST.
+    sorted_data_set = data_set.sort.uniq
+    @root = build_tree_recursive(sorted_data_set)
+  end
+
+  # build_tree takes a given data_set and produces a binary tree of the given data
+  def build_tree_recursive(data_set)
     return nil if data_set.empty?
 
+    # The method recursively splits the data set into halves
     mid_index = data_set.length / 2
     mid = data_set[mid_index]
     left_half = data_set[0...mid_index]
     right_half = data_set[mid_index + 1..-1]
 
+    # Recursively build the left and right subtrees.
     left_node = build_tree(left_half)
     right_node = build_tree(right_half)
 
-    @root = Node.new(mid, left_node, right_node)
+    # Create a new node with the middle element as the data and attach the left and right subtrees.
+    node = Node.new(mid, left_node, right_node)
+
+    # Return the newly created node
+    node
   end
 
   def pretty_print
@@ -112,7 +126,6 @@ class Tree
     # If the data is greater than the current node, traverse the right branch
     # If the current node is nil, return nil
     # If the current node is the data, return the current node
-    # (what information does this give us? Can we return the Node ID?)
     current = @root
 
     while current
@@ -218,7 +231,7 @@ class Tree
         depth_tally += 1
       end
     end
-    -1  # return -1 if data is not found
+    -1
   end
 
   def balanced?(node = @root)

@@ -1,0 +1,21 @@
+## Binary Search Tree (BST) in Ruby
+
+# Overview
+This repository contains a Ruby implementation of a Binary Search Tree (BST). A Binary Search Tree is a data structure that provides efficient methods for inserting, searching, and deleting elements while maintaining an ordered structure.
+
+The main features of a BST include:
+
+* Efficient Searching: Elements in a BST can be quickly located due to the tree's ordered nature.
+* Balanced Structure: Operations such as insertion and deletion attempt to keep the tree balanced, optimising performance.
+
+# Implementation Details
+The BST is implemented using two main classes: Tree and Node.
+
+Node Class: Represents each individual node within the tree.
+Tree Class: Manages the overall tree structure and provides methods for insertion, deletion, traversal, and rebalancing.
+
+# How to Use
+
+1. Clone the Repository.
+2. Run the Ruby file './main.rb' in the irb.
+3. Change instructions as required.

@@ -24,6 +24,7 @@ test.insert(142)
 test.pretty_print
 test.check_balance
 test.rebalance
+test.pretty_print
 test.check_balance
 test.level_order
 test.preorder
