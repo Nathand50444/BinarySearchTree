@@ -17,10 +17,15 @@ test.level_order
 test.preorder
 test.postorder
 test.inorder
-test.insert(120) # Issue with new_node.parent = parent
-
-# test.insert(193)
-# test.insert(154)
-# test.insert(132)
-# test.check_balance
-# test.rebalance
+test.insert(120)
+test.insert(174)
+test.insert(111)
+test.insert(142)
+test.pretty_print
+test.check_balance
+test.rebalance
+test.check_balance
+test.level_order
+test.preorder
+test.postorder
+test.inorder

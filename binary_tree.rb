@@ -12,10 +12,10 @@ class Tree
     mid = data_set[mid_index]
     left_half = data_set[0...mid_index]
     right_half = data_set[mid_index + 1..-1]
-    
+
     left_node = build_tree(left_half)
     right_node = build_tree(right_half)
-    
+
     @root = Node.new(mid, left_node, right_node)
   end
 
@@ -30,12 +30,12 @@ class Tree
     # If the current node is nil, create a new node with the data and return the new node.
     current = @root
     parent = nil
-    
+
     while current
       parent = current
       current = data < current.data ? current.left : current.right
     end
-    
+
     new_node = Node.new(data)
     if parent.nil?
       @root = new_node
@@ -114,7 +114,7 @@ class Tree
     # If the current node is the data, return the current node
     # (what information does this give us? Can we return the Node ID?)
     current = @root
-    
+
     while current
       if current.data == data
         return current
@@ -146,7 +146,7 @@ class Tree
     # Starting from the root, recursively traverse the left subtree
     # Yield each node to the block or add its value to an array.
     # Traverse the right subtree and add the values to the array.
- 
+
   def inorder(node = @root)
     inorder_list = []
 
@@ -177,7 +177,7 @@ class Tree
 
   def postorder(node = @root)
     postorder_list = []
-  
+
     postorder_traversal = lambda do |node|
       return if node.nil?
       postorder_traversal.call(node.left)
@@ -197,7 +197,7 @@ class Tree
     return -1 if node.nil?
     height_node(node)
   end
-  
+
   def height_node(node)
     return 0 if node.nil?
     [height_node(node.left), height_node(node.right)].max + 1
