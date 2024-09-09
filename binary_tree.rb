@@ -48,9 +48,12 @@ class Tree
     while current
       parent = current
       current = data < current.data ? current.left : current.right
+      # The current node's data is compared to the provided 'data'
+      # The tree is traversed based on 'data < current.data'
     end
 
     new_node = Node.new(data)
+    # We create a new node of the given data and assign the new node accordingly
     if parent.nil?
       @root = new_node
     else
@@ -64,7 +67,8 @@ class Tree
   end
 
   def delete(data)
-    # Traverse the branches of the tree based on whether data is less than or greater than the current node.
+    # Here we have to accomodate multiple cases as follows:
+    # We traverse the branches of the tree based on whether data is less than or greater than the current node.
     # If the data is less than the current node, traverse the left branch
     # If the data is greater than the current node, traverse the right branch
     # If the current node is nil, return nil
@@ -133,6 +137,7 @@ class Tree
         return current
       else
         current = data < current.data ? current.left : current.right
+        # We traverse the tree until 'current.data == data' at which point it is 'found'
       end
     end
     nil
@@ -155,12 +160,11 @@ class Tree
     p result
   end
 
+  def inorder(node = @root)
     # The Tree is traversed in this order: left subtree, root then right subtree.
     # Starting from the root, recursively traverse the left subtree
     # Yield each node to the block or add its value to an array.
     # Traverse the right subtree and add the values to the array.
-
-  def inorder(node = @root)
     inorder_list = []
 
     inorder_traversal = lambda do |node|
@@ -235,6 +239,7 @@ class Tree
   end
 
   def balanced?(node = @root)
+    # Uses height_node to caclulate the height of each branch and compares them.
     return true if node.nil?
     left_height = height_node(node.left)
     right_height = height_node(node.right)
